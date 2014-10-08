@@ -112,7 +112,7 @@ object ScalazContribBuild extends Build {
     settings = standardSettings ++ Seq(
       publishArtifact := false
     ),
-    aggregate = Seq(lift, spire, validationExtension, undo, nscalatime)
+    aggregate = Seq(lift, spire, validationExtension, undo, nscalatime, rxscala)
   )
 
   lazy val spire = Project(
@@ -179,4 +179,18 @@ object ScalazContribBuild extends Build {
     )
   )
 
+  lazy val rxscala = Project(
+    id = "rxscala",
+    base = file("rxscala"),
+    settings = standardSettings ++ Seq(
+      name := "scalaz-contrib-rxscala",
+      libraryDependencies ++= Seq(
+        "io.reactivex" %% "rxscala" % "0.21.1",
+        specs2,
+        scalazSpecs2,
+        scalacheck,
+        scalazScalacheck
+      )
+    )
+  )
 }
