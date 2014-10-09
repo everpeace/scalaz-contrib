@@ -73,3 +73,25 @@ Observable.just(1, 2, 3).∃(_ > 3) === false
 Observable.just(1, 2, 3).traverse(x => (x + 1).some) === Observable.just(2, 3, 4).some
 Observable.just(1.some, 2.some).sequence === Observable.just(1, 2).some
 ```
+
+
+## Monad Transformer for Observable.
+This module provides `ObservableT` monad transformer.  You can compose Observable monad with arbitrary monad.
+
+** CAUTION: ** for any monad `M`, `bind (>>=, flatMap)` of `Observable[M,_]`(essentially `M[Observable[_]]`) are **blocking** operators.
+
+### Example: `ObservableT[List,_]`(essentially `List[Observable[_]])`) can be used as a composit monad.
+
+```scala
+import scalaz._, Scalaz._
+import rx.lang.scala.Observable._
+import scalaz.contrib.rxscala._
+
+val ob1 = items(1,2,3,4)
+val map = Map(1 -> 10, 2 -> 20, 3 -> 30, 4 -> 40)
+(for {
+  i <- ObservableT(Option(ob1))
+  j <- map.get(i).liftM[ObservableT]
+} yield (i,j+1)) === ObservableT(Option(items((1,11),(2,21),(3,31),(4,41))))
+
+```
