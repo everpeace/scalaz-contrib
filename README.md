@@ -18,6 +18,7 @@ libraryDependencies ++= Seq(
   "org.typelevel" %% "scalaz-contrib-210"        % "0.2",
   "org.typelevel" %% "scalaz-contrib-validation" % "0.2",
   "org.typelevel" %% "scalaz-contrib-undo"       % "0.2",
+  "org.typelevel" %% "scalaz-contrib-rxscala"    % "0.2",
   // currently unavailable because there's no 2.11 build of Lift yet
   // "org.typelevel" %% "scalaz-lift"               % "0.2",
   "org.typelevel" %% "scalaz-nscala-time"        % "0.2",
@@ -160,3 +161,6 @@ These operations are also available in *automatic* mode, without the need to cal
 The other direction is for free since the two-operator classes extend the one-operator classes. This operation is not available in *automatic* mode, since there is no guarantee that two independent scalaz instances obey the necessary laws to form a two-operator class.
 
 Of course, the above mentioned conversions also work for `Monoid` and `Rig`.
+
+### RxScala
+please see [here](./rxscala/README.md).
